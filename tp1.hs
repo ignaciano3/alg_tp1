@@ -1,5 +1,7 @@
--- Ejercicio 1
 
+c x = round(x ** (1/3))
+
+-- Ejercicio 1
 esSumaDeDosCubos :: Integer -> Bool
 esSumaDeDosCubos x = True 
 

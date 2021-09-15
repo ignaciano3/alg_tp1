@@ -14,5 +14,8 @@ Ej:
 $$
 a = 35 \\
 \sqrt[3]{35} = 3.27 \approx 3\\
-Entonces\;los\;resultados\;posibles\;son\;con:\;3,\;2,\;1\;o\;0
+Entonces\;los\;resultados\;posibles\;son\;con:\;3,\;2,\;1\;o\;0 \\
+Entonces:\\
+Pruebo \; con \; 3 \\
+y = \sqrt[3]{35-3^3} = \sqrt[3]{8} = 2\\
 $$
