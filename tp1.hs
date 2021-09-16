@@ -12,6 +12,7 @@ a = 2
 b :: Integer
 b = 1
 
+-- No se como iterar el a y el b
 descomposicionCubos :: Integer -> (Integer, Integer)
 descomposicionCubos x | a^3 + b^3 == x = (a,b)
                       | a^3 > x = (a-1, b)
