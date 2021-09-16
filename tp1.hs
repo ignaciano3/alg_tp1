@@ -1,13 +1,21 @@
+-- To find all the pairs of integers x and y that sum to n when cubed,
+-- set x to the largest integer less than the cube root of n, 
+-- set y to 0, then repeatedly add 1 to y if the sum of the cubes is less than n,
+-- subtract 1 from x if the sum of the cubes is greater than n,
+-- and output the pair otherwise, stopping when x and y cross. 
+-- If you only want to know whether or not such a pair exists, you can stop as soon as you find one.
+
+
+
 -- Ejercicio 1
 esSumaDeDosCubos :: Integer -> Bool
 esSumaDeDosCubos x = True 
 
 -- Ejercicio 2
--- x = a^3+b^3
--- sol = (a, sqrt3(x-b^3))
 
-a :: Integer
-a = 2
+a = 0
+
+f x = truncate (fromIntegral x**(1/3)) 
 
 b :: Integer
 b = 1
