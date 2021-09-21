@@ -60,7 +60,7 @@ especialNumero x = contadorEspecial x 0 0
 
 contadorEspecial :: Integer -> Integer -> Integer -> Integer
 contadorEspecial x k n  | k == x = n - 1 -- Resto uno porque hace una vuelta de más.
-                        | esEspecial x = contadorEspecial x (k + 1) (n + 1)
+                        | esEspecial n = contadorEspecial x (k + 1) (n + 1)
                         | otherwise = contadorEspecial x k (n + 1)
 
 -- Ejercicio 6 -----------------------------------------------------------------
