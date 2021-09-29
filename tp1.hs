@@ -88,7 +88,7 @@ esMuyEspecial x = esEspecial x && condicionSegunda x 2 1
 
 condicionSegunda :: Integer -> Integer -> Integer -> Bool
 condicionSegunda x a b | n == x = False
-                       | b == x + 1 = True
+                       | especialNumero b > div x 8 = True
                        | n < x = condicionSegunda x (a+1) b 
                        | n > x = condicionSegunda x 2 (b + 1)
-                           where n = ( a ^ 3 ) * b
+                           where n = ( a ^ 3 ) * especialNumero b
