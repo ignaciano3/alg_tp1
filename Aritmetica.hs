@@ -2,26 +2,75 @@ module Aritmetica where
 import Tipos
 import Data.Tuple
 import Data.Bits
-
-
+import Data.List
 --(1)
+-- Ignorar esto
 mcdExt :: Integer -> Integer -> (Integer, (Integer, Integer))
 mcdExt _ _ = (0, (0, 0))
 
---(2)
+
+-- Every prime number can be represented in form of 6n+1 or 6n-1 except the prime number 2 and 3, where n is a natural number.
+--(2)-----------------------------------------------------------------------------
 criba :: Integer -> Set Integer
-criba _ = []
+criba num = encontrarPrimos num 1 [2, 3]
 
---(3)
+encontrarPrimos :: Integer -> Integer -> Set Integer -> Set Integer
+encontrarPrimos num it set  | num == 1 = []
+                            | num == 2 = [2]
+                            | num == 3 = set
+                            | a > num = set
+                            | b < num && esPrimo a && esPrimo b = encontrarPrimos num (it+1) ((set ++ [a])++[b])
+                            | esPrimo a = encontrarPrimos num (it+1) (set ++ [a])
+                            | b > num = set
+                            | esPrimo b = encontrarPrimos num (it+1) (set ++ [b])
+                            | otherwise = encontrarPrimos num (it+1) set
+                            where
+                              a = 6*it-1
+                              b = 6*it+1
+
+esPrimo :: Integral a => a -> Bool
+esPrimo n = verificarEsPrimo (fromIntegral n) 2
+
+verificarEsPrimo :: Integral a => a -> a -> Bool
+verificarEsPrimo n i  | n == 1 = False
+                      | n == i = True
+                      | n `mod` i == 0 = False
+                      | i > fromIntegral sqrtn = True 
+                      | otherwise = verificarEsPrimo n (i+1)
+                      where sqrtn = round (sqrt (fromIntegral n))
+
+-- criba de 10,000 sin i > sqrtn tarda 17.14 segundos :-/ me gustaria que tarde 5 como mucho
+-- con i > sqrtn tarda 1.3 segundos aprox :-D ahi anda bien
+
+--(3)-----------------------------------------------------------------------------
+--Example 1. Let the two numbers be 10 and 90.
+-- We have,
+-- 45 = 3×3×5 
+-- 90 = 2×3×3×5
+-- Common factors = 3,3 and 5
+-- Therefore, gcd(45,90)=3×3×5=45≠1⇒45 and 90 are not coprime numbers.
+
+-- Entoces para sacar coprimos de n buscamos primos que no sean factor comun a n
+-- Para eso hago una funcion que sea sacar factores comunes
+
 coprimoCon:: Integer -> Integer
-coprimoCon _ = 0
+coprimoCon num = encontrarCoprimo num (nub(factores num)) 2 0 
 
+factores num = verificarFactores num 2 []
+
+verificarFactores num it set | num == 1 = set
+                             | esPrimo num = set++[num]
+                             | num `mod` it == 0 = verificarFactores (num `div` it) 2 (set ++ [it])
+                             | otherwise = verificarFactores num (it+1) set
+
+encontrarCoprimo num set i it | num == 2 = 1 -- coprimo con 2
+                              | it >= length set = i
+                              | i `mod` (set !! it) /= 0 = encontrarCoprimo num set i (it+1)
+                              | otherwise = encontrarCoprimo num set (i+1) 0                              
 
 --(4)
 inversoMultiplicativo:: Integer -> Integer -> Integer
 inversoMultiplicativo _ _ = 0
-
-
 
 -- Función de regalo para exponenciar "rápido"
 modExp :: Integer -> Integer -> Integer -> Integer
