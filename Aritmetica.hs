@@ -95,6 +95,7 @@ euclidesExtendido g0 g1 u0 u1 v0 v1 num2 | g1 /= 0 = euclidesExtendido g1 g2 u1 
                                         u2 = u0 - y2 * u1
                                         v2 = v0 - y2 * v1
 
+-- Metete la función de regalo por el *rt*
 
 -- Función de regalo para exponenciar "rápido"
 modExp :: Integer -> Integer -> Integer -> Integer
