@@ -3,6 +3,7 @@ import Tipos
 import Data.Tuple
 import Data.Bits
 import Data.List
+
 --(1)
 -- Ignorar esto
 mcdExt :: Integer -> Integer -> (Integer, (Integer, Integer))
@@ -35,7 +36,7 @@ verificarEsPrimo :: Integral a => a -> a -> Bool
 verificarEsPrimo n i  | n == 1 = False
                       | n == i = True
                       | n `mod` i == 0 = False
-                      | i > fromIntegral sqrtn = True 
+                      | i > fromIntegral sqrtn = True
                       | otherwise = verificarEsPrimo n (i+1)
                       where sqrtn = round (sqrt (fromIntegral n))
 
@@ -54,7 +55,7 @@ verificarEsPrimo n i  | n == 1 = False
 -- Para eso hago una funcion que sea sacar factores comunes
 
 coprimoCon:: Integer -> Integer
-coprimoCon num = encontrarCoprimo num (nub(factores num)) 2 0 
+coprimoCon num = encontrarCoprimo num (nub(factores num)) 2 0
 
 factores num = verificarFactores num 2 []
 
@@ -66,14 +67,36 @@ verificarFactores num it set | num == 1 = set
 encontrarCoprimo num set i it | num == 2 = 1 -- coprimo con 2
                               | it >= length set = i
                               | i `mod` (set !! it) /= 0 = encontrarCoprimo num set i (it+1)
-                              | otherwise = encontrarCoprimo num set (i+1) 0                              
+                              | otherwise = encontrarCoprimo num set (i+1) 0
 
 --(4)
 inversoMultiplicativo:: Integer -> Integer -> Integer
-inversoMultiplicativo _ _ = 0
+inversoMultiplicativo num1 num2 | not (sonCoprimos num1 num2) = 0
+                                | otherwise = euclidesExtendido num2 num1 1 0 0 1
+
+-- Verifico si son coprimos
+sonCoprimos num1 num2 = boolFactoresDistintos (factores num1) (factores num2) 0 0
+
+boolFactoresDistintos set1 set2 it1 it2 | (set1 !! it1) == (set2 !! it2) = False
+                                        | it1 < length set1 -1 = boolFactoresDistintos set1 set2 (it1+1) it2
+                                        | it2 < length set2 -1 = boolFactoresDistintos set1 set2 0 (it2+1)
+                                        | otherwise = True
+
+-- Aplico el algoritmo de Euclides Extendido
+euclidesExtendido :: Integer -> Integer -> Integer -> Integer -> Integer -> Integer -> Integer -> Integer
+euclidesExtendido g0 g1 u0 u1 v0 v1   | g0 == 0 = v0
+                                      | otherwise = euclidesExtendido g1 aux1 u1 aux2 v1 aux3
+                                      where 
+                                        y2 = g0 `div` g1
+                                        aux1 = g0-y2*g1
+                                        aux2 = u0-y2*u1
+                                        aux3 = v0-y2*v1
+
 
 -- Función de regalo para exponenciar "rápido"
 modExp :: Integer -> Integer -> Integer -> Integer
 modExp b 0 m = 1
 modExp b e m = t * modExp ((b * b) `mod` m) (shiftR e 1) m `mod` m
   where t = if testBit e 0 then b `mod` m else 1
+
+-- inv(9, 275)
