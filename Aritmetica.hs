@@ -5,20 +5,20 @@ import Data.Bits
 import Data.List
 
 --(1)
--- Ignorar esto
+-- Ignorar esto y si es posible eliminarlo que no sirve para naaa
 mcdExt :: Integer -> Integer -> (Integer, (Integer, Integer))
 mcdExt _ _ = (0, (0, 0))
 
 
--- Every prime number can be represented in form of 6n+1 or 6n-1 except the prime number 2 and 3, where n is a natural number.
+
 --(2)-----------------------------------------------------------------------------
+-- Every prime number can be represented in form of 6n+1 or 6n-1 except the prime number 2 and 3, where n is a natural number.
 criba :: Integer -> Set Integer
 criba num = encontrarPrimos num 1 [2, 3]
 
 encontrarPrimos :: Integer -> Integer -> Set Integer -> Set Integer
-encontrarPrimos num it set  | num == 1 = []
-                            | num == 2 = [2]
-                            | num == 3 = set
+encontrarPrimos num it set  | num == 1 || num == 2 = [] -- no hay primos anteriores a 2
+                            | num == 3 = [2] -- solo 2 ya que cuentan los anteriores a 3
                             | a > num = set
                             | b < num && esPrimo a && esPrimo b = encontrarPrimos num (it+1) ((set ++ [a])++[b])
                             | esPrimo a = encontrarPrimos num (it+1) (set ++ [a])
