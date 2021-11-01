@@ -71,8 +71,8 @@ encontrarCoprimo num set i it | num == 2 = 1 -- coprimo con 2
 
 --(4)
 inversoMultiplicativo:: Integer -> Integer -> Integer
-inversoMultiplicativo num1 num2 | not (sonCoprimos num1 num2) = 0
-                                | otherwise = euclidesExtendido num2 num1 1 0 0 1
+inversoMultiplicativo num1 num2 | not (sonCoprimos num1 num2) = -99
+                                | otherwise = euclidesExtendido num2 num1 1 0 0 1 num2
 
 -- Verifico si son coprimos
 sonCoprimos num1 num2 = boolFactoresDistintos (factores num1) (factores num2) 0 0
@@ -83,14 +83,17 @@ boolFactoresDistintos set1 set2 it1 it2 | (set1 !! it1) == (set2 !! it2) = False
                                         | otherwise = True
 
 -- Aplico el algoritmo de Euclides Extendido
+-- https://www.youtube.com/watch?v=D289EF58Yrw
 euclidesExtendido :: Integer -> Integer -> Integer -> Integer -> Integer -> Integer -> Integer -> Integer
-euclidesExtendido g0 g1 u0 u1 v0 v1   | g0 == 0 = v0
-                                      | otherwise = euclidesExtendido g1 aux1 u1 aux2 v1 aux3
+euclidesExtendido g0 g1 u0 u1 v0 v1 num2 | g1 /= 0 = euclidesExtendido g1 g2 u1 u2 v1 v2 num2
+                                      --                              g0 g1 u0 u1 v0 v1 B queda igual
+                                      | g1 == 0 && v0 < 0 = v0 + num2
+                                      | otherwise = v0
                                       where 
                                         y2 = g0 `div` g1
-                                        aux1 = g0-y2*g1
-                                        aux2 = u0-y2*u1
-                                        aux3 = v0-y2*v1
+                                        g2 = g0 - y2 * g1
+                                        u2 = u0 - y2 * u1
+                                        v2 = v0 - y2 * v1
 
 
 -- Función de regalo para exponenciar "rápido"
