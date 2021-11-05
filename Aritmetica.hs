@@ -9,8 +9,6 @@ import Data.List
 mcdExt :: Integer -> Integer -> (Integer, (Integer, Integer))
 mcdExt _ _ = (0, (0, 0))
 
-
-
 --(2)-----------------------------------------------------------------------------
 -- Every prime number can be represented in form of 6n+1 or 6n-1 except the prime number 2 and 3, where n is a natural number.
 -- No obliga a hacer el algortmo criba así que hice uno mejor
@@ -23,7 +21,7 @@ encontrarPrimos num it set  | num == 1 || num == 2 = [] -- no hay primos anterio
                             | a > num = set -- ya me fui del num
                             | b < num && esPrimo a && esPrimo b = encontrarPrimos num (it+1) ((set ++ [a])++[b])  --es primo a y b con b es menor que num
                             | esPrimo a = encontrarPrimos num (it+1) (set ++ [a]) -- es solo primo a
-                            | b > num = set -- ya me fui del num
+                            | b > num = set -- ya me fui del num 
                             | esPrimo b = encontrarPrimos num (it+1) (set ++ [b]) -- es solo primo b
                             | otherwise = encontrarPrimos num (it+1) set --proximos a y b
                             where
@@ -35,7 +33,6 @@ esPrimo n = verificarEsPrimo (fromIntegral n) 2
 
 verificarEsPrimo :: Integral a => a -> a -> Bool
 verificarEsPrimo n i  | n == 1 = False -- 1 no es primo
-                      | n == i = True -- es primo
                       | n `mod` i == 0 = False -- es compuesto
                       | i > fromIntegral sqrtn = True -- verificar más números no sirve
                       | otherwise = verificarEsPrimo n (i+1) -- proximo i
@@ -61,11 +58,11 @@ coprimoCon num = encontrarCoprimo num (nub(factores num)) 2 0 --nub saca duplica
 factores num = verificarFactores num 2 []
 
 verificarFactores num it set | num == 1 = set --llegue al final
-                             | esPrimo num = set++[num] -- si lo que queda es primo agrego al set
-                             | num `mod` it == 0 = verificarFactores (num `div` it) 2 (set ++ [it]) --encontre un primo :)
+                             | esPrimo num = set++[num] -- si lo que queda es primo agrego al set y lo devuelvo
+                             | num `mod` it == 0 = verificarFactores (num `div` it) it (set ++ [it]) --encontre un factor :)
                              | otherwise = verificarFactores num (it+1) set -- proximo it
 
-encontrarCoprimo num set i it | num == 2 = 1 -- coprimo con 2
+encontrarCoprimo num set i it | num == 2 = 1 -- coprimo con 2 
                               | it >= length set = i -- si no es compuesto con otro, llega al final de la lista
                               | i `mod` (set !! it) /= 0 = encontrarCoprimo num set i (it+1) -- si no es compuesto con uno verifico con el resto del set
                               | otherwise = encontrarCoprimo num set (i+1) 0 -- proximo i
