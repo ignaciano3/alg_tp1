@@ -33,6 +33,7 @@ esPrimo n = verificarEsPrimo (fromIntegral n) 2
 
 verificarEsPrimo :: Integral a => a -> a -> Bool
 verificarEsPrimo n i  | n == 1 = False -- 1 no es primo
+                      | n == 3 = True
                       | n `mod` i == 0 = False -- es compuesto
                       | i > fromIntegral sqrtn = True -- verificar más números no sirve
                       | otherwise = verificarEsPrimo n (i+1) -- proximo i
