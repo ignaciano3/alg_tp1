@@ -62,7 +62,7 @@ inversoMultiplicativo:: Integer -> Integer -> Integer
 inversoMultiplicativo num1 num2 | not (sonCoprimos num1 num2) = -99
                                 | a < 0 = a + num2
                                 | a > 0 = a
-                                  where euclidesExtendido num2 num1 1 0 0 1 = a
+                                  where a = euclidesExtendido num2 num1 1 0 0 1
 
 -- Verifico si son coprimos
 sonCoprimos num1 num2 = boolFactoresDistintos (factores num1) (factores num2) 0 0
@@ -74,7 +74,7 @@ boolFactoresDistintos set1 set2 it1 it2 | (set1 !! it1) == (set2 !! it2) = False
 
 -- Aplico el algoritmo de Euclides Extendido
 -- https://www.youtube.com/watch?v=D289EF58Yrw
-euclidesExtendido :: Integer -> Integer -> Integer -> Integer -> Integer -> Integer -> Integer -> Integer
+euclidesExtendido :: Integer -> Integer -> Integer -> Integer -> Integer -> Integer -> Integer
 euclidesExtendido g0 g1 u0 u1 v0 v1 | g1 /= 0 = euclidesExtendido g1 g2 u1 u2 v1 v2
                                        --                              g0 g1 u0 u1 v0 v1 queda igual
                                     | g1 == 0 = v0 
