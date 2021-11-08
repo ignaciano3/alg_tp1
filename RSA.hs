@@ -19,6 +19,15 @@ encontrarClaves e d n m k | mod x m == 1 = (e, d, n) -- consegui un numero x tal
                               where x = e*d
                                     y = k*m
 
+
+{- Esta versión es más rápida pero menos segura
+claves :: Integer -> Integer -> (Integer, Integer, Integer)
+claves p q = (e, d , n)
+            where m = (p-1)*(q-1)
+                  n = p*q
+                  e = m - 1
+                  d = inversoMultiplicativo (m-1) m      -}                              
+
 --(5)
 
 codificador :: Clpub -> Mensaje -> Cifrado
