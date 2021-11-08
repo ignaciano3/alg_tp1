@@ -34,9 +34,6 @@ verificarEsPrimo n i  | n == 1 = False -- 1 no es primo
                       | otherwise = verificarEsPrimo n (i+1) -- proximo i
                       where sqrtn = round (sqrt (fromIntegral n))
 
--- criba de 10,000 sin i > sqrtn tarda 17.14 segundos :-/ me gustaria que tarde 5 como mucho
--- con i > sqrtn tarda 1.3 segundos aprox :-D ahi anda bien
-
 --(2)-----------------------------------------------------------------------------
 
 -- Entoces para sacar coprimos de n buscamos primos que no sean factor comun a n
@@ -76,10 +73,10 @@ boolFactoresDistintos set1 set2 it1 it2 | (set1 !! it1) == (set2 !! it2) = False
 -- https://www.youtube.com/watch?v=D289EF58Yrw
 euclidesExtendido :: Integer -> Integer -> Integer -> Integer -> Integer -> Integer -> Integer
 euclidesExtendido g0 g1 u0 u1 v0 v1 | g1 /= 0 = euclidesExtendido g1 g2 u1 u2 v1 v2
-                                       --                              g0 g1 u0 u1 v0 v1 queda igual
+                                  --                              g0 g1 u0 u1 v0 v1 queda igual
                                     | g1 == 0 = v0 
                                       where 
-                                        y2 = g0 `div` g1 --mirar el video
+                                        y2 = g0 `div` g1
                                         g2 = g0 - y2 * g1
                                         u2 = u0 - y2 * u1
                                         v2 = v0 - y2 * v1
