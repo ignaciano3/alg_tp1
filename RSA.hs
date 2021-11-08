@@ -26,7 +26,8 @@ claves p q = (e, d , n)
             where m = (p-1)*(q-1)
                   n = p*q
                   e = m - 1
-                  d = inversoMultiplicativo (m-1) m      -}                              
+                  d = inversoMultiplicativo (m-1) m      
+-}                              
 
 --(5)
 
