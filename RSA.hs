@@ -6,18 +6,11 @@ import Aritmetica
 -- en esta funcion voy a asumir que para cualquier par q , p primos existe un par (e,d) tal que e*d mod ((p-1)(q-1)) = 1
 
 claves :: Integer -> Integer -> (Integer, Integer, Integer)
-claves p q = encontrarClaves (m-1) 1 n m 1
+claves p q = (e, d, n)
             where m = (p-1)*(q-1)
                   n = p*q
-
--- le asigno a la clave publica el valor m-1 porque es el valor mas alto que puede adquirir.
-encontrarClaves :: Integer -> Integer -> Integer -> Integer -> Integer -> (Integer, Integer, Integer)
-encontrarClaves e d n m k | mod x m == 1 = (e, d, n) -- consegui un numero x tal que mod e*d m = 1 por lo que tengo las dos claves que queria
-                          | e < div (y+1) d = encontrarClaves (m-1) (d+1) n m k -- ya pase por todos los posibles valores de e por lo que vuelvo a empezar y le sumo 1 a D
-                          | d > (y+1) = encontrarClaves (m-1) 1 n m (k+1) -- ya pase por todos los posibles valores de d por lo que me fijo con el siguiente multiplo de m
-                          | otherwise = encontrarClaves (e-1) d n m k -- si no cumple con ninguna de las anteriores le resto 1 y empiezo denuevo
-                              where x = e*d
-                                    y = k*m
+                  e = coprimoCon m -- busco un numero coprimo a m y fijo el valor de E
+                  d = inversoMultiplicativo e m -- doy a d como el inverso multiplicativo de e y m
 
 
 {- Esta versión es más rápida pero menos segura
