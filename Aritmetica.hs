@@ -62,7 +62,7 @@ inversoMultiplicativo:: Integer -> Integer -> Integer
 inversoMultiplicativo num1 num2 | not (sonCoprimos num1 num2) = -99
                                 | a < 0 = a + num2
                                 | a > 0 = a
-                                  where euclidesExtendido num2 num1 1 0 0 1 = a
+                                  where a = euclidesExtendido num2 num1 1 0 0 1
 
 -- Verifico si son coprimos
 sonCoprimos num1 num2 = boolFactoresDistintos (factores num1) (factores num2) 0 0
