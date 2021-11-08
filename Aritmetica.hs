@@ -74,7 +74,7 @@ boolFactoresDistintos set1 set2 it1 it2 | (set1 !! it1) == (set2 !! it2) = False
 
 -- Aplico el algoritmo de Euclides Extendido
 -- https://www.youtube.com/watch?v=D289EF58Yrw
-euclidesExtendido :: Integer -> Integer -> Integer -> Integer -> Integer -> Integer -> Integer -> Integer
+euclidesExtendido :: Integer -> Integer -> Integer -> Integer -> Integer -> Integer -> Integer
 euclidesExtendido g0 g1 u0 u1 v0 v1 | g1 /= 0 = euclidesExtendido g1 g2 u1 u2 v1 v2
                                        --                              g0 g1 u0 u1 v0 v1 queda igual
                                     | g1 == 0 = v0 
